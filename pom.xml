@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.mirweb</groupId>
 	<artifactId>spring-boot-demo</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 	<name>spring-boot-demo</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -23,7 +23,7 @@
 	<scm>
 		<connection/>
 		<developerConnection/>
-		<tag>0.2.0</tag>
+		<tag>0.2.1</tag>
 		<url/>
 	</scm>
 	<properties>

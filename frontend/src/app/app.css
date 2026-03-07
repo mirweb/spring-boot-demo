@@ -23,7 +23,25 @@
   padding: 4rem 1.5rem;
   display: grid;
   gap: 2rem;
+  grid-template-rows: 1fr auto;
   align-content: center;
+}
+
+.shell > .hero,
+.shell > .panel {
+  align-self: center;
+}
+
+.app-footer {
+  align-self: end;
+  justify-self: center;
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(31, 42, 33, 0.48);
 }
 
 .hero,
@@ -143,10 +161,15 @@ code {
 @media (max-width: 640px) {
   .shell {
     padding: 1rem;
+    grid-template-rows: auto;
   }
 
   .hero,
   .panel {
     padding: 1.25rem;
+  }
+
+  .app-footer {
+    margin-bottom: 0.25rem;
   }
 }

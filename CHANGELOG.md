@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-03-07
+### Added
+- Add a generated Angular app metadata module sourced from the Maven project version and name.
+
+### Changed
+- Sync the Angular frontend version metadata from `pom.xml` before frontend start, build, watch, and test commands.
+- Show the application name and version in a small footer in the Angular app.
+- Make the Angular footer metadata test independent from any hard-coded version string.
+
 ## [0.2.0] - 2026-03-07
 ### Added
 - Add an Angular application under `frontend/` as the start of an integrated frontend stack.

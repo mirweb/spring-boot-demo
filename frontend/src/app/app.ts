@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { APP_METADATA } from './app-version';
 
 type HelloResponse = {
   message: string;
@@ -12,6 +13,8 @@ type HelloResponse = {
   styleUrl: './app.css'
 })
 export class App {
+  protected readonly appName = APP_METADATA.name;
+  protected readonly appVersion = APP_METADATA.version;
   protected readonly name = signal('Angular');
   protected readonly message = signal('Loading greeting...');
   protected readonly loading = signal(false);

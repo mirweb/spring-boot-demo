@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
+import { APP_METADATA } from './app-version';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -31,5 +32,7 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Integrated frontend');
     expect(compiled.querySelector('.response-text')?.textContent).toContain('Hello Angular!');
+    expect(compiled.querySelector('.app-footer')?.textContent).toContain(APP_METADATA.name);
+    expect(compiled.querySelector('.app-footer')?.textContent).toContain(APP_METADATA.version);
   });
 });

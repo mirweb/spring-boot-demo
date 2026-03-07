@@ -1,7 +1,12 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "scripts": {
+    "sync-version": "node ./scripts/sync-version.mjs",
+    "prestart": "npm run sync-version",
+    "prebuild": "npm run sync-version",
+    "prewatch": "npm run sync-version",
+    "pretest": "npm run sync-version",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
