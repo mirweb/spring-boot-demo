@@ -1,6 +1,6 @@
 # spring-boot-demo
 
-Simple Spring Boot demo application with one HTTP endpoint:
+Spring Boot demo application with an integrated Angular frontend in `frontend/`.
 
 - `GET /api/hello`
 - `GET /api/hello?name=Alice`
@@ -8,6 +8,7 @@ Simple Spring Boot demo application with one HTTP endpoint:
 ## Prerequisites
 
 - Java 21
+- Node.js 24 LTS for direct Angular development in `frontend/`
 - Docker (for building/running container images)
 
 ## Run locally
@@ -16,7 +17,7 @@ Simple Spring Boot demo application with one HTTP endpoint:
 ./mvnw spring-boot:run
 ```
 
-The app starts on `http://localhost:8080`.
+The app starts on `http://localhost:8080` and serves the built Angular app from the same Spring Boot process.
 
 Quick check:
 
@@ -31,6 +32,25 @@ Example responses:
 {"message":"Hello World!"}
 {"message":"Hello Alice!"}
 ```
+
+## Frontend development
+
+The Angular application lives in `frontend/`.
+
+Run the Angular dev server:
+
+```bash
+cd frontend
+npm start
+```
+
+Run the Spring Boot backend in parallel:
+
+```bash
+./mvnw spring-boot:run
+```
+
+For integrated packaging, Maven runs `npm ci`, builds Angular with a Node 24 runtime, and bundles the generated static assets into the Spring Boot jar.
 
 ## Run tests
 

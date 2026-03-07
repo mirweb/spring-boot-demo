@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.mirweb</groupId>
 	<artifactId>spring-boot-demo</artifactId>
-	<version>0.1.0</version>
+	<version>0.2.0</version>
 	<name>spring-boot-demo</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -23,11 +23,14 @@
 	<scm>
 		<connection/>
 		<developerConnection/>
-		<tag>0.1.0</tag>
+		<tag>0.2.0</tag>
 		<url/>
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<frontend.workingDirectory>${project.basedir}/frontend</frontend.workingDirectory>
+		<frontend.buildDirectory>${frontend.workingDirectory}/dist/frontend/browser</frontend.buildDirectory>
+		<frontend.nodePackageVersion>24.14.0</frontend.nodePackageVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,8 +69,70 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.6.1</version>
+				<executions>
+					<execution>
+						<id>npm-ci</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${frontend.workingDirectory}</workingDirectory>
+							<executable>npm</executable>
+							<arguments>
+								<argument>ci</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm-build</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<workingDirectory>${frontend.workingDirectory}</workingDirectory>
+							<executable>npm</executable>
+							<arguments>
+								<argument>exec</argument>
+								<argument>--yes</argument>
+								<argument>--package=node@${frontend.nodePackageVersion}</argument>
+								<argument>--</argument>
+								<argument>node</argument>
+								<argument>./node_modules/@angular/cli/bin/ng</argument>
+								<argument>build</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-angular-build</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${frontend.buildDirectory}</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

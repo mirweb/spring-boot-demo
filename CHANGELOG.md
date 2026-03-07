@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-07
+### Added
+- Add an Angular application under `frontend/` as the start of an integrated frontend stack.
+
+### Changed
+- Build and bundle the Angular app through Maven so Spring Boot serves the generated static assets.
+- Add Spring MVC forwarding for the Angular SPA entrypoint.
+- Document integrated Angular frontend development and packaging in `README.md`.
+- Add simple log output for the `hello` endpoint method and request parameter.
+
 ## [0.1.0] - 2026-03-07
 ### Added
 - Add `README.md` with local usage instructions for running, testing, and packaging.
