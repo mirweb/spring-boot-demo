@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Add a project-local `.mise.toml` to pin the Java and Node.js tool versions used by the build.
 
+### Changed
+- Require Conventional Commits for future commit messages in `AGENTS.md`.
+
 ## [0.2.1] - 2026-03-07
 ### Added
 - Add a generated Angular app metadata module sourced from the Maven project version and name.
