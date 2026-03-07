@@ -25,6 +25,13 @@ curl "http://localhost:8080/api/hello"
 curl "http://localhost:8080/api/hello?name=Alice"
 ```
 
+Example responses:
+
+```json
+{"message":"Hello World!"}
+{"message":"Hello Alice!"}
+```
+
 ## Run tests
 
 ```bash
@@ -56,11 +63,10 @@ Build the executable Spring Boot jar:
 ./mvnw package
 ```
 
-The jar is created under `target/` (for example `target/spring-boot-demo-0.0.1-SNAPSHOT.jar`).
+The jar is created under `target/` (for example `target/spring-boot-demo-0.1.0.jar`).
 
 Run the packaged jar:
 
 ```bash
-java -jar target/spring-boot-demo-0.0.1-SNAPSHOT.jar
+java -jar target/spring-boot-demo-0.1.0.jar
 ```
-

@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.1.0] - 2026-03-07
 ### Added
 - Add `README.md` with local usage instructions for running, testing, and packaging.
 - Document Docker-based run and test options in `README.md`.
@@ -11,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add a minimal `compose.yaml` with an app service and exposed port.
 
 ### Changed
+- Change `GET /api/hello` response from plain text to JSON with a `message` field.
 - Upgrade Spring Boot parent from `4.0.2` to `4.0.3` (latest stable 4.x patch release).
 - Use `spring-boot-starter-web` for standard web dependencies.
 - Use `spring-boot-starter-test` for `@WebMvcTest` support.

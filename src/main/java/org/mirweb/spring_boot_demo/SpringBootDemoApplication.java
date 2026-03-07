@@ -1,5 +1,7 @@
 package org.mirweb.spring_boot_demo;
 
+import java.util.Map;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +18,8 @@ public class SpringBootDemoApplication {
 
 
 	@GetMapping("/api/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return "Hello %s!".formatted(name);
+	public Map<String, String> hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+		return Map.of("message", "Hello %s!".formatted(name));
 	}
 
 }
