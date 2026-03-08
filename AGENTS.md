@@ -9,3 +9,4 @@
 - Maintain technical documentation under `docs/` using Markdown files only.
 - Update relevant files in `docs/` when code changes affect architecture, workflows, operations, interfaces, or technical decisions.
 - Record new or changed architectural decisions as Markdown ADRs under `docs/adr/`.
+- Keep OpenAPI/Swagger documentation accurate when API endpoints, parameters, or response contracts change.

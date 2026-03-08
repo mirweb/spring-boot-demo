@@ -9,6 +9,7 @@
 
 - Technical documentation lives under `docs/`.
 - Architectural decisions are captured as ADRs.
+- API documentation is exposed via OpenAPI and Swagger UI.
 
 ## Testing
 

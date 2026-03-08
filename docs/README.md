@@ -6,6 +6,7 @@ This directory contains the project's technical documentation in Markdown.
 
 - `architecture/`: lightweight arc42-inspired architecture documentation.
 - `adr/`: Architecture Decision Records (ADRs), one Markdown file per decision.
+- `api/`: API documentation conventions and entrypoints.
 - `runbooks/`: operational and team workflows.
 
 ## Working agreement

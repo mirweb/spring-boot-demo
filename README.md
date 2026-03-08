@@ -26,6 +26,7 @@ Quick check:
 ```bash
 curl "http://localhost:8080/api/hello"
 curl "http://localhost:8080/api/hello?name=Alice"
+curl "http://localhost:8080/v3/api-docs"
 ```
 
 Example responses:
@@ -34,6 +35,8 @@ Example responses:
 {"message":"Hello World!"}
 {"message":"Hello Alice!"}
 ```
+
+Swagger UI is available at `http://localhost:8080/swagger-ui.html`, and the OpenAPI specification is exposed at `http://localhost:8080/v3/api-docs`.
 
 ## Frontend development
 
