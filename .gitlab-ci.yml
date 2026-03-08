@@ -82,4 +82,5 @@ publish-release-image:
       -Djib.to.image=$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
       -Djib.to.auth.username=$CI_REGISTRY_USER
       -Djib.to.auth.password=$CI_REGISTRY_PASSWORD
+      package
       jib:build

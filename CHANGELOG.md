@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Configure Maven Jib for registry publishing from CI without requiring a Docker daemon.
 - Document the tagged image publication flow in the README, release runbook, and deployment documentation.
+- Run the Maven package phase before the tag image publish step so the GitLab release job has compiled application output for Jib.
 
 ## [0.3.0] - 2026-03-08
 ### Added
