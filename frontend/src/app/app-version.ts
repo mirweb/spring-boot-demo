@@ -1,4 +1,4 @@
 export const APP_METADATA = {
   "name": "spring-boot-demo",
-  "version": "0.3.0"
+  "version": "0.3.1"
 } as const;
