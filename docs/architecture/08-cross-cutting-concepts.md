@@ -16,3 +16,4 @@
 - Backend tests run through Maven and Spring Boot test support.
 - Frontend tests validate rendered UI behavior and API interactions.
 - GitLab CI runs repository validation on pushes and merge requests through `.gitlab-ci.yml`.
+- GitLab CI publishes backend and frontend JUnit test reports for job-level inspection.

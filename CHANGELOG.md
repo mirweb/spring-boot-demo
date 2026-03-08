@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Require `docs/` updates in `AGENTS.md` when relevant technical changes are made.
 - Require OpenAPI documentation to stay aligned with API changes in `AGENTS.md`.
 - Switch GitLab CI to a Java 21 base image and install Node.js 24 explicitly to fix pipeline startup.
+- Publish Maven and frontend test results as GitLab job reports in CI.
 
 ## [0.2.1] - 2026-03-07
 ### Added

@@ -11,7 +11,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "npm run sync-version && ng test --watch=false --reporters=junit --output-file=test-results/vitest.junit.xml"
   },
   "private": true,
   "packageManager": "npm@11.9.0",

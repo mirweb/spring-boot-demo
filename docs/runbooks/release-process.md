@@ -6,6 +6,7 @@
 - Update project version metadata as needed.
 - Verify documentation under `docs/` still matches the implemented architecture and workflows.
 - Ensure the GitLab CI pipeline is green for the relevant branch or merge request.
+- Check GitLab test reports when a CI validation job fails instead of relying on raw logs alone.
 
 ## Release steps
 

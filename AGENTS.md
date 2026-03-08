@@ -14,3 +14,4 @@
 ## CI policy
 - Keep `.gitlab-ci.yml` aligned with the supported build and test workflow.
 - Update CI-related documentation when validation, release, or contributor expectations change.
+- Keep GitLab test report publishing aligned with the actual Maven and frontend test commands.

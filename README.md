@@ -71,7 +71,8 @@ The pipeline currently runs:
 
 - Java 21 setup
 - Node.js 24 setup
-- `./mvnw --batch-mode test`
+- `./mvnw --batch-mode test` with Maven Surefire reports published to GitLab
+- frontend unit tests with a JUnit report published to GitLab
 
 ## Docker run options
 
