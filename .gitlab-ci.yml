@@ -24,13 +24,17 @@ cache:
 
 validate:
   stage: validate
-  image: node:24-bookworm
+  image: eclipse-temurin:21-jdk
   before_script:
     - apt-get update
-    - apt-get install -y openjdk-21-jdk-headless
-    - export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+    - apt-get install -y curl ca-certificates
+    - curl -fsSL https://nodejs.org/dist/v24.14.0/node-v24.14.0-linux-x64.tar.gz -o /tmp/node.tar.gz
+    - mkdir -p /opt/node
+    - tar -xzf /tmp/node.tar.gz -C /opt/node --strip-components=1
+    - export PATH="/opt/node/bin:$PATH"
     - chmod +x mvnw
     - java -version
+    - node --version
     - npm --version
   script:
     - ./mvnw --batch-mode test
