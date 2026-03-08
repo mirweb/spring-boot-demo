@@ -25,6 +25,7 @@ Use:
 - Backend and frontend changes can evolve together.
 - One deployable unit keeps runtime setup simple.
 - Versioning and documentation can stay centralized.
+- The same Maven build can produce both the application artifact and the release container image.
 
 ### Negative
 

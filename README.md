@@ -73,6 +73,7 @@ The pipeline currently runs:
 - Node.js 24 setup
 - `./mvnw --batch-mode test` with Maven Surefire reports published to GitLab
 - frontend unit tests with a JUnit report published to GitLab
+- a tag-only release job that publishes an OCI image to the GitLab Container Registry as `$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG`
 
 ## Docker run options
 
@@ -89,6 +90,8 @@ Or run with Docker Compose:
 ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=spring-boot-demo:local
 docker compose up -d
 ```
+
+Tagged GitLab pipelines also publish an OCI image to the project container registry through Maven Jib, using the Git tag as the image tag.
 
 
 ## Package the app
