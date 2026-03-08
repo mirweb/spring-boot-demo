@@ -4,3 +4,8 @@
 
 ## Commit policy
 - Create commit messages following https://www.conventionalcommits.org/en/v1.0.0/.
+
+## Documentation policy
+- Maintain technical documentation under `docs/` using Markdown files only.
+- Update relevant files in `docs/` when code changes affect architecture, workflows, operations, interfaces, or technical decisions.
+- Record new or changed architectural decisions as Markdown ADRs under `docs/adr/`.

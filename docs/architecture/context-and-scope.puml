@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+
+actor "Browser User" as User
+actor "Developer" as Developer
+
+rectangle "spring-boot-demo" {
+  component "Angular SPA\n(frontend/)" as Frontend
+  component "Spring Boot Application\n(API + static asset serving)" as Backend
+  component "Maven Build\n(integrated packaging)" as Build
+}
+
+component "Docker" as Docker
+
+User --> Frontend : Uses UI over HTTP
+Frontend --> Backend : Calls /api/* endpoints
+Developer --> Build : Runs mvnw commands
+Developer --> Frontend : Runs npm commands
+Developer --> Docker : Builds and runs image
+Build --> Frontend : Builds frontend assets
+Build --> Backend : Packages application jar
+Docker --> Backend : Runs packaged app
+
+note right of Backend
+  Serves Angular static assets
+  and backend HTTP endpoints.
+end note
+
+note bottom of Build
+  Maven is the top-level build
+  entrypoint for the repository.
+end note
+@enduml
