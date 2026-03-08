@@ -2,6 +2,8 @@
 
 Spring Boot demo application with an integrated Angular frontend in `frontend/`.
 
+Technical documentation lives under [`docs/`](docs/README.md).
+
 - `GET /api/hello`
 - `GET /api/hello?name=Alice`
 

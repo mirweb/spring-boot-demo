@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 - Add a project-local `.mise.toml` to pin the Java and Node.js tool versions used by the build.
+- Add a Markdown-based `docs/` directory with architecture, ADR, and runbook content.
+- Add a PlantUML context-and-scope diagram to the architecture documentation.
 
 ### Changed
 - Require Conventional Commits for future commit messages in `AGENTS.md`.
+- Require `docs/` updates in `AGENTS.md` when relevant technical changes are made.
 
 ## [0.2.1] - 2026-03-07
 ### Added
