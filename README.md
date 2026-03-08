@@ -63,6 +63,16 @@ For integrated packaging, Maven runs `npm ci`, builds Angular with a Node 24 run
 ./mvnw test
 ```
 
+## Continuous integration
+
+GitLab CI validates the repository on pushes and merge requests using `.gitlab-ci.yml`.
+
+The pipeline currently runs:
+
+- Java 21 setup
+- Node.js 24 setup
+- `./mvnw --batch-mode test`
+
 ## Docker run options
 
 Build and run an OCI image via Spring Boot buildpacks:

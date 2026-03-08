@@ -1,0 +1,36 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+stages:
+  - validate
+
+variables:
+  DEBIAN_FRONTEND: noninteractive
+  MAVEN_USER_HOME: "$CI_PROJECT_DIR/.m2"
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key:
+    files:
+      - pom.xml
+      - frontend/package-lock.json
+  paths:
+    - .m2/
+    - .npm/
+    - frontend/node_modules/
+
+validate:
+  stage: validate
+  image: node:24-bookworm
+  before_script:
+    - apt-get update
+    - apt-get install -y openjdk-21-jdk-headless
+    - export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+    - chmod +x mvnw
+    - java -version
+    - npm --version
+  script:
+    - ./mvnw --batch-mode test

@@ -5,6 +5,7 @@
 - Ensure `CHANGELOG.md` reflects the pending changes.
 - Update project version metadata as needed.
 - Verify documentation under `docs/` still matches the implemented architecture and workflows.
+- Ensure the GitLab CI pipeline is green for the relevant branch or merge request.
 
 ## Release steps
 

@@ -10,3 +10,7 @@
 - Update relevant files in `docs/` when code changes affect architecture, workflows, operations, interfaces, or technical decisions.
 - Record new or changed architectural decisions as Markdown ADRs under `docs/adr/`.
 - Keep OpenAPI/Swagger documentation accurate when API endpoints, parameters, or response contracts change.
+
+## CI policy
+- Keep `.gitlab-ci.yml` aligned with the supported build and test workflow.
+- Update CI-related documentation when validation, release, or contributor expectations change.

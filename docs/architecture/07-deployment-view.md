@@ -5,6 +5,7 @@
 - Maven builds the Spring Boot application.
 - Maven runs the Angular build in `frontend/`.
 - The generated frontend assets are copied into the backend artifact.
+- GitLab CI validates the integrated build and test flow before changes are merged.
 
 ## Runtime topology
 
