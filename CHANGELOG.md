@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.3.0] - 2026-03-08
 ### Added
 - Add a project-local `.mise.toml` to pin the Java and Node.js tool versions used by the build.
 - Add a GitLab CI pipeline that validates the application on pushes and merge requests.
