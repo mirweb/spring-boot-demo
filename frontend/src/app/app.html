@@ -1,35 +1,21 @@
-<main class="shell">
-  <section class="hero">
-    <p class="eyebrow">Spring Boot + Angular</p>
-    <h1>Integrated frontend inside the same repository.</h1>
-    <p class="lede">
-      The Angular app lives in <code>frontend/</code>, is built by Maven, and
-      talks directly to the Spring Boot backend.
-    </p>
-  </section>
+<main class="app-shell">
+  <header class="app-banner">
+    <h1>{{ appName }}</h1>
+  </header>
 
-  <section class="panel">
-    <label class="field">
-      <span>Name</span>
-      <input
-        type="text"
-        [ngModel]="name()"
-        (ngModelChange)="name.set($event)"
-        placeholder="Enter a name"
-      />
-    </label>
+  <nav class="app-nav" aria-label="Primary navigation">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Main page
+    </a>
+    <a routerLink="/feature" routerLinkActive="active">Feature page</a>
+  </nav>
 
-    <button type="button" (click)="loadGreeting()" [disabled]="loading()">
-      {{ loading() ? 'Loading...' : 'Fetch greeting' }}
-    </button>
-
-    <div class="response-card">
-      <p class="response-label">API response</p>
-      <p class="response-text">{{ message() }}</p>
-      @if (error()) {
-        <p class="error">{{ error() }}</p>
-      }
-    </div>
+  <section class="app-body">
+    <router-outlet />
   </section>
 
   <footer class="app-footer" aria-label="Application metadata">

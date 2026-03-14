@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Added
+- Add a project-local `glab` tool entry to `.mise.toml` so GitLab CLI usage is available through the pinned local toolchain.
+- Add a dedicated Angular feature page route alongside the default main page ([#6](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/6)).
+
+### Changed
+- Restructure the Angular frontend into a shared shell with a blue banner, a two-entry navigation menu, and a routed body area while keeping the footer compact at the bottom ([#6](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/6)).
+- Disable SpringDoc OpenAPI and Swagger UI endpoints automatically when the `prod` profile is active.
+- Require issue-linked changelog entries and GitLab-style issue references in commit message footers for future issue-based work in `AGENTS.md`.
 
 ## [0.3.1] - 2026-03-08
 ### Added

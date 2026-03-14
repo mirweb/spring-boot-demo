@@ -16,7 +16,9 @@
 
 ### Frontend
 
-- Angular root component for page layout and API interaction.
+- Angular root component for the shared banner, navigation, routed body, and footer shell.
+- Angular home page component for the default greeting workflow on `/`.
+- Angular feature page component for the dedicated `/feature` route.
 - generated app metadata for displaying application name and version.
 
 ### Build
