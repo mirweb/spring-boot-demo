@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.feature-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.feature-copy,
+.feature-panel {
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(30, 43, 58, 0.1);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.section-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #5d6d7d;
+}
+
+h2,
+h3 {
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1;
+  max-width: 14ch;
+}
+
+h3 {
+  font-size: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+p,
+li {
+  color: #516172;
+  line-height: 1.65;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+@media (max-width: 780px) {
+  .feature-layout {
+    grid-template-columns: 1fr;
+  }
+}

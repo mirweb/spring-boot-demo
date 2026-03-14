@@ -20,6 +20,10 @@ Start Spring Boot separately from the repository root:
 
 The Angular UI currently calls the backend endpoint `GET /api/hello`.
 The Angular dev server proxies `/api/*` to `http://localhost:8080`.
+The application now uses Angular routing with:
+
+- `/` for the main page that contains the existing greeting interaction
+- `/feature` for a dedicated second page reserved for a new feature area
 
 ## Build
 

@@ -1,3 +1,7 @@
+## Language policy
+- Write all repository-related content in English.
+- Use English for issues, merge requests, commit messages, changelog entries, documentation, code comments, and assistant responses about this repository unless the user explicitly requests another language for a specific task.
+
 ## Changelog policy
 - Maintain `CHANGELOG.md` following https://keepachangelog.com/en/1.0.0/.
 - Before every commit, verify `CHANGELOG.md` is updated to reflect the changes.

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 - Add a project-local `glab` tool entry to `.mise.toml` so GitLab CLI usage is available through the pinned local toolchain.
+- Add a dedicated Angular feature page route alongside the default main page.
+
+### Changed
+- Restructure the Angular frontend into a shared shell with a blue banner, a two-entry navigation menu, and a routed body area while keeping the footer compact at the bottom.
 
 ## [0.3.1] - 2026-03-08
 ### Added
