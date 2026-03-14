@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.4.0] - 2026-03-14
 ### Added
 - Add a project-local `glab` tool entry to `.mise.toml` so GitLab CLI usage is available through the pinned local toolchain.
 - Add a dedicated Angular feature page route alongside the default main page ([#6](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/6)).
