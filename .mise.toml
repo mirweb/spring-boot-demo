@@ -2,3 +2,4 @@
 glab = { version = "latest", exe = "glab" }
 java = "temurin-21"
 node = "24"
+opentofu = "1.11.5"
