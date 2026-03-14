@@ -5,9 +5,11 @@
 ## Changelog policy
 - Maintain `CHANGELOG.md` following https://keepachangelog.com/en/1.0.0/.
 - Before every commit, verify `CHANGELOG.md` is updated to reflect the changes.
+- When work is done for a GitLab issue, mention the issue in the relevant changelog entry and include a Markdown link to the GitLab issue or work item.
 
 ## Commit policy
 - Create commit messages following https://www.conventionalcommits.org/en/v1.0.0/.
+- When a commit belongs to a GitLab issue, add a GitLab-style issue reference in the commit message footer, for example `Refs: #6` or `Closes: #6` when appropriate.
 
 ## Documentation policy
 - Maintain technical documentation under `docs/` using Markdown files only.
