@@ -37,6 +37,7 @@ Example responses:
 ```
 
 Swagger UI is available at `http://localhost:8080/swagger-ui.html`, and the OpenAPI specification is exposed at `http://localhost:8080/v3/api-docs`.
+When the application runs with the `prod` profile, both endpoints are disabled.
 
 ## Frontend development
 
@@ -53,6 +54,12 @@ Run the Spring Boot backend in parallel:
 
 ```bash
 ./mvnw spring-boot:run
+```
+
+Run with production-oriented settings:
+
+```bash
+SPRING_PROFILES_ACTIVE=prod ./mvnw spring-boot:run
 ```
 
 For integrated packaging, Maven runs `npm ci`, builds Angular with a Node 24 runtime, and bundles the generated static assets into the Spring Boot jar.

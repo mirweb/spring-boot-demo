@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Restructure the Angular frontend into a shared shell with a blue banner, a two-entry navigation menu, and a routed body area while keeping the footer compact at the bottom.
+- Disable SpringDoc OpenAPI and Swagger UI endpoints automatically when the `prod` profile is active.
 
 ## [0.3.1] - 2026-03-08
 ### Added

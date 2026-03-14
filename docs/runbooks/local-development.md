@@ -14,6 +14,12 @@
 ./mvnw spring-boot:run
 ```
 
+### Backend with production profile
+
+```bash
+SPRING_PROFILES_ACTIVE=prod ./mvnw spring-boot:run
+```
+
 ### Frontend dev server
 
 ```bash
@@ -33,3 +39,4 @@ npm start
 - The frontend exposes `/` as the main page and `/feature` as the secondary routed page inside the Angular shell.
 - Version metadata shown in the frontend footer is generated from `pom.xml`.
 - OpenAPI is available at `/v3/api-docs` and Swagger UI at `/swagger-ui.html` while the backend is running.
+- The `prod` profile disables `/v3/api-docs` and `/swagger-ui.html`.
