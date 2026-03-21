@@ -1,0 +1,15 @@
+tenancy_ocid      = "ocid1.tenancy.oc1..exampleuniqueID"
+compartment_id    = "ocid1.compartment.oc1..exampleuniqueID"
+user_ocid         = "ocid1.user.oc1..exampleuniqueID"
+fingerprint       = "12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef"
+private_key_path  = "~/.oci/oci_api_key.pem"
+ssh_public_key    = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIexample your.name@example"
+
+# Optional overrides
+# shape                    = "VM.Standard.A1.Flex"
+# shape_ocpus              = 1
+# shape_memory_in_gbs      = 6
+# ssh_allowed_cidrs        = ["198.51.100.10/32"]
+# kubernetes_api_allowed_cidrs = ["198.51.100.10/32"]
+# http_allowed_cidrs       = ["0.0.0.0/0"]
+# k3s_server_extra_args    = ["--disable", "traefik"]

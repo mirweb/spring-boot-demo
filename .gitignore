@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### OpenTofu / Terraform ###
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.auto.tfvars
+*.auto.tfvars.json

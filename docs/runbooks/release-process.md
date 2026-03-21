@@ -7,6 +7,7 @@
 - Verify documentation under `docs/` still matches the implemented architecture and workflows.
 - Ensure the GitLab CI pipeline is green for the relevant branch or merge request.
 - Check GitLab test reports when a CI validation job fails instead of relying on raw logs alone.
+- If infrastructure code changed, verify the OpenTofu validation job passes and confirm whether OCI plan/apply credentials or state settings need updates.
 
 ## Release steps
 
@@ -21,3 +22,4 @@
 - Move the released changelog entries out of `Unreleased`.
 - Confirm the release image is available in the project container registry for deployment or manual validation.
 - Keep ADRs and architecture docs current for any follow-up changes.
+- Review whether the infrastructure workflow docs still match the active OCI shape, region, and GitLab state setup.

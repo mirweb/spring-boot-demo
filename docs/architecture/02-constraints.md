@@ -6,6 +6,7 @@
 - Frontend runtime and build are based on Node.js 24 and Angular.
 - Maven is the top-level build entrypoint for integrated packaging.
 - Frontend assets are served by the Spring Boot application.
+- OCI infrastructure is provisioned with OpenTofu and uses GitLab-managed remote state.
 
 ## Organizational constraints
 
@@ -16,4 +17,5 @@
 ## Quality constraints
 
 - The project should stay easy to build locally.
+- Infrastructure workflows should support both workstation execution and GitLab CI automation.
 - Architecture and workflow changes should be reflected in `docs/`.
