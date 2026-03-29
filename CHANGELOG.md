@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Set ARM64 helper image for GitLab Runner on OrbStack (Apple Silicon) to fix `no matching manifest for linux/arm64/v8` image pull error ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
-- Switch CI base image to `eclipse-temurin:21-jdk-noble-arm64` and Node.js to `linux-arm64` to fix architecture mismatch on OrbStack ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
+- Add `kubernetes.io/arch=arm64` node selector to GitLab Runner config to force ARM64 pod scheduling on OrbStack ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
 
 ### Changed
 - Route all CI jobs to the `self-hosted` runner tag; remove OCI OpenTofu infra stage from the pipeline ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).

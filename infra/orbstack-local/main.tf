@@ -36,6 +36,8 @@ resource "helm_release" "gitlab_runner" {
       [[runners]]
         [runners.kubernetes]
           helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-v18.10.0"
+          [runners.kubernetes.node_selector]
+            "kubernetes.io/arch" = "arm64"
     EOT
   }
 }
