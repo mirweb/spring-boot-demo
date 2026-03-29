@@ -17,6 +17,7 @@ resource "kubernetes_persistent_volume_claim" "maven_cache" {
       }
     }
   }
+  wait_until_bound = false
 }
 
 resource "kubernetes_persistent_volume_claim" "npm_cache" {
@@ -32,6 +33,7 @@ resource "kubernetes_persistent_volume_claim" "npm_cache" {
       }
     }
   }
+  wait_until_bound = false
 }
 
 resource "helm_release" "gitlab_runner" {
