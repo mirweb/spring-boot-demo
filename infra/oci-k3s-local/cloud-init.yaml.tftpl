@@ -1,0 +1,24 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - curl
+  - jq
+
+write_files:
+  - path: /etc/rancher/k3s/config.yaml
+    permissions: "0644"
+    owner: root:root
+    content: |
+      write-kubeconfig-mode: "0644"
+      node-name: "${hostname}"
+
+runcmd:
+  - |
+    set -eux
+    curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL="${k3s_channel}" K3S_TOKEN="${k3s_token}" sh -s - server ${k3s_server_args}
+  - systemctl enable k3s
+  - systemctl restart k3s
+
+final_message: "k3s installation finished"

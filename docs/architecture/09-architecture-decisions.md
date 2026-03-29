@@ -5,3 +5,4 @@ Architecture decisions are recorded as ADRs in [`../adr/`](../adr/).
 Current notable decisions:
 
 - [ADR 0001: Use Spring Boot with Angular in one repository and one packaged application](../adr/0001-use-spring-boot-with-angular-monorepo.md)
+- [ADR 0002: Use OpenTofu and GitLab-managed state for OCI k3s provisioning](../adr/0002-use-opentofu-and-gitlab-state-for-oci-k3s.md)

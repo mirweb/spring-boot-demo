@@ -5,6 +5,7 @@ workflow:
 
 stages:
   - validate
+  - infra
   - release
 
 variables:
@@ -12,6 +13,7 @@ variables:
   MAVEN_USER_HOME: "$CI_PROJECT_DIR/.m2"
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  OPENTOFU_VERSION: "1.11.5"
 
 cache:
   key:
@@ -41,6 +43,16 @@ cache:
   extends: .base_maven_node
   stage: validate
 
+.base_opentofu:
+  image: debian:bookworm-slim
+  before_script:
+    - apt-get update
+    - apt-get install -y curl ca-certificates git
+    - curl -fsSL "https://github.com/opentofu/opentofu/releases/download/v${OPENTOFU_VERSION}/tofu_${OPENTOFU_VERSION}_linux_amd64.tar.gz" -o /tmp/tofu.tar.gz
+    - tar -xzf /tmp/tofu.tar.gz -C /usr/local/bin tofu
+    - tofu version
+    - chmod +x infra/oci-k3s/scripts/init-backend.sh
+
 backend-validate:
   extends: .base_validate
   script:
@@ -66,6 +78,66 @@ frontend-validate:
         - frontend/test-results/vitest.junit.xml
     paths:
       - frontend/test-results/
+
+opentofu-validate:
+  extends: .base_opentofu
+  stage: validate
+  script:
+    - cd infra/oci-k3s
+    - tofu fmt -check -recursive
+    - tofu init -backend=false
+    - tofu validate
+
+opentofu-plan:
+  extends: .base_opentofu
+  stage: infra
+  needs:
+    - opentofu-validate
+  rules:
+    - if: '$OCI_TENANCY_OCID && $OCI_COMPARTMENT_OCID && $OCI_USER_OCID && $OCI_FINGERPRINT && $OCI_PRIVATE_KEY_PEM && $OCI_SSH_PUBLIC_KEY'
+  script:
+    - export TF_VAR_tenancy_ocid="$OCI_TENANCY_OCID"
+    - export TF_VAR_compartment_id="$OCI_COMPARTMENT_OCID"
+    - export TF_VAR_user_ocid="$OCI_USER_OCID"
+    - export TF_VAR_fingerprint="$OCI_FINGERPRINT"
+    - export TF_VAR_private_key_pem="$OCI_PRIVATE_KEY_PEM"
+    - export TF_VAR_region="${OCI_REGION:-eu-frankfurt-1}"
+    - export TF_VAR_ssh_public_key="$OCI_SSH_PUBLIC_KEY"
+    - export GITLAB_PROJECT_ID="$CI_PROJECT_ID"
+    - export GITLAB_TERRAFORM_STATE_NAME="oci-k3s"
+    - cd infra/oci-k3s
+    - ./scripts/init-backend.sh tofu init -reconfigure
+    - tofu plan -lock=false -out=tfplan
+    - tofu show -json tfplan > tfplan.json
+  artifacts:
+    when: always
+    paths:
+      - infra/oci-k3s/tfplan
+      - infra/oci-k3s/tfplan.json
+
+opentofu-apply:
+  extends: .base_opentofu
+  stage: infra
+  needs:
+    - opentofu-plan
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $OCI_TENANCY_OCID && $OCI_COMPARTMENT_OCID && $OCI_USER_OCID && $OCI_FINGERPRINT && $OCI_PRIVATE_KEY_PEM && $OCI_SSH_PUBLIC_KEY && $GITLAB_TERRAFORM_PASSWORD'
+      when: manual
+      allow_failure: false
+  script:
+    - export TF_VAR_tenancy_ocid="$OCI_TENANCY_OCID"
+    - export TF_VAR_compartment_id="$OCI_COMPARTMENT_OCID"
+    - export TF_VAR_user_ocid="$OCI_USER_OCID"
+    - export TF_VAR_fingerprint="$OCI_FINGERPRINT"
+    - export TF_VAR_private_key_pem="$OCI_PRIVATE_KEY_PEM"
+    - export TF_VAR_region="${OCI_REGION:-eu-frankfurt-1}"
+    - export TF_VAR_ssh_public_key="$OCI_SSH_PUBLIC_KEY"
+    - export GITLAB_PROJECT_ID="$CI_PROJECT_ID"
+    - export GITLAB_TERRAFORM_STATE_NAME="oci-k3s"
+    - export GITLAB_TERRAFORM_USERNAME="${GITLAB_TERRAFORM_USERNAME:-gitlab-ci-token}"
+    - cd infra/oci-k3s
+    - ./scripts/init-backend.sh tofu init -reconfigure
+    - tofu apply -auto-approve
 
 publish-release-image:
   extends: .base_maven_node

@@ -40,3 +40,4 @@ npm start
 - Version metadata shown in the frontend footer is generated from `pom.xml`.
 - OpenAPI is available at `/v3/api-docs` and Swagger UI at `/swagger-ui.html` while the backend is running.
 - The `prod` profile disables `/v3/api-docs` and `/swagger-ui.html`.
+- OCI and OpenTofu workflows are documented separately in [`oci-k3s.md`](./oci-k3s.md).

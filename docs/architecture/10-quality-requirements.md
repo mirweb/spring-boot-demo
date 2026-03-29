@@ -13,6 +13,7 @@
 ## Deployability
 
 - The application should remain packageable as a single unit.
+- Infrastructure changes should remain reproducible from both a workstation and GitLab CI.
 
 ## Consistency
 

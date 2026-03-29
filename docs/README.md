@@ -8,6 +8,8 @@ This directory contains the project's technical documentation in Markdown.
 - `adr/`: Architecture Decision Records (ADRs), one Markdown file per decision.
 - `api/`: API documentation conventions and entrypoints.
 - `runbooks/`: operational and team workflows.
+- `runbooks/oci-k3s.md`: OCI Free Tier k3s provisioning workflow with OpenTofu and GitLab-managed state.
+- `runbooks/oci-k3s-local-state.md`: alternative OCI Free Tier k3s workflow with local OpenTofu state and migration guidance to GitLab-managed state.
 
 ## Working agreement
 

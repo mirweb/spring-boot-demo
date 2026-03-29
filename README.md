@@ -100,6 +100,25 @@ docker compose up -d
 
 Tagged GitLab pipelines also publish an OCI image to the project container registry through Maven Jib, using the Git tag as the image tag.
 
+## OCI k3s infrastructure
+
+OpenTofu infrastructure for a single-node OCI Free Tier k3s cluster lives in `infra/oci-k3s/`.
+
+An alternative local-state root without GitLab backend integration lives in `infra/oci-k3s-local/`.
+
+Typical local workflow:
+
+```bash
+cd infra/oci-k3s
+cp terraform.tfvars.example terraform.tfvars
+export GITLAB_PROJECT_ID=<gitlab-project-id>
+export GITLAB_TOKEN=<gitlab-personal-or-project-access-token>
+./scripts/init-backend.sh tofu init -reconfigure
+tofu plan
+tofu apply
+```
+
+The workflow targets the OCI Frankfurt region by default and selects the newest available Ubuntu 24.04 image for the chosen compute shape at plan/apply time. See [`docs/runbooks/oci-k3s.md`](docs/runbooks/oci-k3s.md) for the GitLab-backed workflow, and [`docs/runbooks/oci-k3s-local-state.md`](docs/runbooks/oci-k3s-local-state.md) for the local-state variant and migration steps into GitLab-managed state.
 
 ## Package the app
 
