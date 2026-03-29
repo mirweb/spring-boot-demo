@@ -9,18 +9,27 @@ stages:
 
 variables:
   DEBIAN_FRONTEND: noninteractive
-  MAVEN_OPTS: "-Dmaven.repo.local=/root/.m2/repository"
-  npm_config_cache: "/root/.npm"
+  MAVEN_USER_HOME: "$CI_PROJECT_DIR/.m2"
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key:
+    files:
+      - pom.xml
+      - frontend/package-lock.json
+  paths:
+    - .m2/
+    - .npm/
+    - frontend/node_modules/
 
 
 .base_maven_node:
-  tags:
-    - self-hosted
   image: eclipse-temurin:21-jdk
   before_script:
     - apt-get update
     - apt-get install -y curl ca-certificates
-    - curl -fsSL https://nodejs.org/dist/v24.14.0/node-v24.14.0-linux-arm64.tar.gz -o /tmp/node.tar.gz
+    - curl -fsSL https://nodejs.org/dist/v24.14.0/node-v24.14.0-linux-x64.tar.gz -o /tmp/node.tar.gz
     - mkdir -p /opt/node
     - tar -xzf /tmp/node.tar.gz -C /opt/node --strip-components=1
     - export PATH="/opt/node/bin:$PATH"
