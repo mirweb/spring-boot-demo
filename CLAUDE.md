@@ -17,6 +17,10 @@
 - Record new or changed architectural decisions as Markdown ADRs under `docs/adr/`.
 - Keep OpenAPI/Swagger documentation accurate when API endpoints, parameters, or response contracts change.
 
+## Release tag policy
+- Always create release tags on `main` after the release MR is merged.
+- Tags must not have a `v` prefix — use the plain version number (e.g. `0.5.1`, not `v0.5.1`).
+
 ## Angular update policy
 - Use `npx ng update @angular/core @angular/cli` to update Angular — do not manually edit version numbers in `package.json`.
 - `ng update` handles peer dependencies and runs migrations automatically.
