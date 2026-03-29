@@ -9,19 +9,9 @@ stages:
 
 variables:
   DEBIAN_FRONTEND: noninteractive
-  MAVEN_USER_HOME: "$CI_PROJECT_DIR/.m2"
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  MAVEN_OPTS: "-Dmaven.repo.local=/root/.m2/repository"
+  npm_config_cache: "/root/.npm"
 
-cache:
-  key:
-    files:
-      - pom.xml
-      - frontend/package-lock.json
-  paths:
-    - .m2/
-    - .npm/
-    - frontend/node_modules/
 
 .base_maven_node:
   tags:

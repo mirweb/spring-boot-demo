@@ -1,9 +1,44 @@
+resource "kubernetes_namespace" "gitlab_runner" {
+  metadata {
+    name = "gitlab-runner"
+  }
+}
+
+resource "kubernetes_persistent_volume_claim" "maven_cache" {
+  metadata {
+    name      = "maven-cache"
+    namespace = kubernetes_namespace.gitlab_runner.metadata[0].name
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "5Gi"
+      }
+    }
+  }
+}
+
+resource "kubernetes_persistent_volume_claim" "npm_cache" {
+  metadata {
+    name      = "npm-cache"
+    namespace = kubernetes_namespace.gitlab_runner.metadata[0].name
+  }
+  spec {
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "2Gi"
+      }
+    }
+  }
+}
+
 resource "helm_release" "gitlab_runner" {
   name             = "gitlab-runner"
   repository       = "https://charts.gitlab.io"
   chart            = "gitlab-runner"
-  namespace        = "gitlab-runner"
-  create_namespace = true
+  namespace  = kubernetes_namespace.gitlab_runner.metadata[0].name
 
   set {
     name  = "gitlabUrl"
@@ -36,10 +71,22 @@ resource "helm_release" "gitlab_runner" {
       [[runners]]
         [runners.kubernetes]
           helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-v18.10.0"
+          pull_policy = ["if-not-present"]
           [runners.kubernetes.node_selector]
             "kubernetes.io/arch" = "arm64"
+          [[runners.kubernetes.volumes.pvc]]
+            name = "maven-cache"
+            mount_path = "/root/.m2"
+          [[runners.kubernetes.volumes.pvc]]
+            name = "npm-cache"
+            mount_path = "/root/.npm"
     EOT
   }
+
+  depends_on = [
+    kubernetes_persistent_volume_claim.maven_cache,
+    kubernetes_persistent_volume_claim.npm_cache,
+  ]
 }
 
 resource "helm_release" "gitlab_agent" {
