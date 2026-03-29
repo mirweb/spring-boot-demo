@@ -34,7 +34,7 @@ Create `infra/oci-k3s/terraform.tfvars` from `terraform.tfvars.example` and set 
 The stack defaults to:
 
 - region `eu-frankfurt-1`
-- shape `VM.Standard.E2.1.Micro`
+- shape `VM.Standard.A1.Flex` (4 OCPUs, 24 GB RAM)
 - a dedicated VCN `10.42.0.0/16`
 - a public subnet `10.42.0.0/24`
 - Ubuntu 24.04 selected dynamically from OCI for the requested shape

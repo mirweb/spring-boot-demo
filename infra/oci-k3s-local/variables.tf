@@ -59,19 +59,19 @@ variable "name_prefix" {
 variable "shape" {
   description = "OCI compute shape for the k3s node."
   type        = string
-  default     = "VM.Standard.E2.1.Micro"
+  default     = "VM.Standard.A1.Flex"
 }
 
 variable "shape_ocpus" {
   description = "OCPU count when using a Flex shape."
   type        = number
-  default     = 1
+  default     = 4
 }
 
 variable "shape_memory_in_gbs" {
   description = "Memory size in GB when using a Flex shape."
   type        = number
-  default     = 6
+  default     = 24
 }
 
 variable "boot_volume_size_in_gbs" {

@@ -131,7 +131,7 @@ ssh_public_key   = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIexample oci-k3s"
 Optional values you may want to set early:
 
 - `region`: default is `eu-frankfurt-1`
-- `shape`: default is `VM.Standard.E2.1.Micro`
+- `shape`: default is `VM.Standard.A1.Flex` (4 OCPUs, 24 GB RAM)
 - `ssh_allowed_cidrs`: restrict SSH access to your own IP range
 - `kubernetes_api_allowed_cidrs`: restrict API server access
 - `http_allowed_cidrs`: restrict HTTP and HTTPS exposure
