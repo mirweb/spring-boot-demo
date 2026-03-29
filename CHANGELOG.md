@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Added
+- Add OpenTofu module `infra/orbstack-local` to install GitLab Runner and GitLab Kubernetes Agent on the local OrbStack cluster via Helm ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
+- Add `.gitlab/agents/orbstack/config.yaml` for GitLab Kubernetes Agent CI access ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
+- Add runbook `docs/runbooks/orbstack-local.md` describing local runner and agent setup ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
 
 ## [0.5.0] - 2026-03-29
 ### Added
