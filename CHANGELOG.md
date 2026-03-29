@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add a second OCI k3s root under `infra/oci-k3s-local` that uses plain local OpenTofu state, plus a dedicated runbook for migrating that local state into the GitLab-backed stack later ([#7](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/7)).
 
 ### Changed
+- Switch default OCI compute shape from `VM.Standard.E2.1.Micro` to `VM.Standard.A1.Flex` (4 OCPUs, 24 GB RAM) to fully utilise the OCI Always Free ARM quota ([#7](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/7)).
 - Extend GitLab CI and repository documentation to cover OpenTofu validation, OCI plan/apply automation, GitLab state usage, and operational tradeoffs for the OCI Free Tier k3s workflow ([#7](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/7)).
 - Document the OCI OpenTofu workflows with direct `tofu` commands for local usage and migration guidance ([#7](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/7)).
 
