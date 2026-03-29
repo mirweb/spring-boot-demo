@@ -29,6 +29,15 @@ resource "helm_release" "gitlab_runner" {
     name  = "runners.locked"
     value = "false"
   }
+
+  set {
+    name  = "runners.config"
+    value = <<-EOT
+      [[runners]]
+        [runners.kubernetes]
+          helper_image = "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:arm64-v18.10.0"
+    EOT
+  }
 }
 
 resource "helm_release" "gitlab_agent" {
