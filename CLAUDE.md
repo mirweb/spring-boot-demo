@@ -17,6 +17,11 @@
 - Record new or changed architectural decisions as Markdown ADRs under `docs/adr/`.
 - Keep OpenAPI/Swagger documentation accurate when API endpoints, parameters, or response contracts change.
 
+## Angular update policy
+- Use `npx ng update @angular/core @angular/cli` to update Angular — do not manually edit version numbers in `package.json`.
+- `ng update` handles peer dependencies and runs migrations automatically.
+- For major version updates, consult https://update.angular.io for the step-by-step guide.
+
 ## CI policy
 - Keep `.gitlab-ci.yml` aligned with the supported build and test workflow.
 - Update CI-related documentation when validation, release, or contributor expectations change.
