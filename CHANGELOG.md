@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Add `.gitlab/agents/orbstack/config.yaml` for GitLab Kubernetes Agent CI access ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
 - Add runbook `docs/runbooks/orbstack-local.md` describing local runner and agent setup ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
 
+### Changed
+- Route all CI jobs to the `self-hosted` runner tag; remove OCI OpenTofu infra stage from the pipeline ([#9](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/9)).
+
 ## [0.5.0] - 2026-03-29
 ### Added
 - Add a project-local `opentofu` tool entry to `.mise.toml` so infrastructure tooling is available through the pinned local toolchain.
