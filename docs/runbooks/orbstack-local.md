@@ -112,6 +112,56 @@ deploy:
     - kubectl apply -f k8s/
 ```
 
+## Lokales manuelles Deployment via Manifest
+
+Das Manifest `deploy/spring-boot-demo.yaml` enthält Platzhalter (`__IMAGE__`, `__VERSION__`), die vor dem Apply ersetzt werden müssen.
+
+### Voraussetzungen
+
+- OrbStack läuft, `kubectl config use-context orbstack` funktioniert
+- TLS-Secret `wildcard-k8s-orb-local-tls` im Namespace `spring-boot-demo` ist angelegt (siehe Abschnitt oben)
+- Zugriff auf die GitLab Container Registry (Login oder Deploy Token)
+
+### Registry-Login einmalig einrichten
+
+```bash
+kubectl create secret docker-registry gitlab-registry \
+  --docker-server=registry.gitlab.com \
+  --docker-username=<dein-gitlab-username> \
+  --docker-password=<dein-access-token> \
+  --namespace spring-boot-demo \
+  --dry-run=client -o yaml | kubectl apply -f -
+```
+
+### Manifest deployen
+
+```bash
+VERSION=0.6.0
+IMAGE=registry.gitlab.com/mirko111/spring-boot-demo:${VERSION}
+
+sed \
+  -e "s|__IMAGE__|${IMAGE}|g" \
+  -e "s|__VERSION__|${VERSION}|g" \
+  deploy/spring-boot-demo.yaml | kubectl apply -f -
+```
+
+### Status prüfen
+
+```bash
+kubectl -n spring-boot-demo get pods,svc,ingress
+kubectl -n spring-boot-demo rollout status deployment/spring-boot-demo
+```
+
+Die App ist danach erreichbar unter: `https://spring-boot-demo.k8s.orb.local`
+
+### Deployment entfernen
+
+```bash
+kubectl delete namespace spring-boot-demo
+```
+
+> **Hinweis:** Damit wird auch das TLS-Secret gelöscht und muss beim nächsten Deployment neu angelegt werden.
+
 ## Tear down
 
 ```bash
