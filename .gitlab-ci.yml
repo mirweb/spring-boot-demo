@@ -43,7 +43,13 @@ cache:
   before_script:
     - apt-get update
     - apt-get install -y curl ca-certificates
-    - curl -fsSL https://nodejs.org/dist/v24.14.0/node-v24.14.0-linux-x64.tar.gz -o /tmp/node.tar.gz
+    - |
+      case "$(uname -m)" in
+        x86_64)  NODE_ARCH=x64 ;;
+        aarch64) NODE_ARCH=arm64 ;;
+        *)       echo "Unsupported architecture $(uname -m)"; exit 1 ;;
+      esac
+    - curl -fsSL https://nodejs.org/dist/v24.14.0/node-v24.14.0-linux-${NODE_ARCH}.tar.gz -o /tmp/node.tar.gz
     - mkdir -p /opt/node
     - tar -xzf /tmp/node.tar.gz -C /opt/node --strip-components=1
     - export PATH="/opt/node/bin:$PATH"
