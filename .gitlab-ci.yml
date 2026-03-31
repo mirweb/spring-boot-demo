@@ -1,3 +1,14 @@
+spec:
+  inputs:
+    runner_tag:
+      default: ""
+      description: "Runner tag to use. Leave empty for any GitLab-hosted runner, or select 'self-hosted'."
+      options:
+        - ""
+        - "self-hosted"
+
+---
+
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push"'
@@ -12,8 +23,6 @@ variables:
   MAVEN_USER_HOME: "$CI_PROJECT_DIR/.m2"
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  # Set to "self-hosted" to route all jobs to self-hosted runners.
-  RUNNER_TAG: ""
 
 cache:
   key:
@@ -28,7 +37,7 @@ cache:
 
 .base_maven_node:
   tags:
-    - $RUNNER_TAG
+    - $[[ inputs.runner_tag ]]
   image: eclipse-temurin:21-jdk
   before_script:
     - apt-get update
