@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Added
+- Add `deploy/spring-boot-demo.yaml` Kubernetes manifest for deploying the application to the OrbStack local cluster via the GitLab Kubernetes Agent.
+- Add manual `deploy-orbstack` CI job (stage `deploy`) that applies the manifest via the `orbstack` agent after a tagged release image is published.
+
 ### Changed
 - Build multi-arch Docker images (`linux/amd64`, `linux/arm64`) via Jib `<platforms>` configuration.
 
