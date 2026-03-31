@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Changed
+- Build multi-arch Docker images (`linux/amd64`, `linux/arm64`) via Jib `<platforms>` configuration.
 
 ## [0.5.1] - 2026-03-29
 ### Added
