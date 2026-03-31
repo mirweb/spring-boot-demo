@@ -86,6 +86,7 @@ using a mkcert wildcard certificate.
 2. Create the Kubernetes secret in the app namespace:
 
    ```bash
+   kubectl create namespace spring-boot-demo
    kubectl create secret tls wildcard-k8s-orb-local-tls \
      --cert=_wildcard.k8s.orb.local.pem \
      --key=_wildcard.k8s.orb.local-key.pem \
