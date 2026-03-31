@@ -73,8 +73,15 @@ kind: Ingress
 metadata:
   name: spring-boot-demo
   namespace: spring-boot-demo
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - spring-boot-demo.k8s.orb.local
+      # Wildcard TLS secret — create once per cluster, see docs/runbooks/orbstack-local.md
+      secretName: wildcard-k8s-orb-local-tls
   rules:
     - host: spring-boot-demo.k8s.orb.local
       http:

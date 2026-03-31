@@ -119,7 +119,7 @@ deploy-orbstack:
       when: manual
   environment:
     name: orbstack
-    url: http://spring-boot-demo.k8s.orb.local
+    url: https://spring-boot-demo.k8s.orb.local
   before_script:
     - kubectl config use-context mirko111/spring-boot-demo:orbstack
     - kubectl create namespace spring-boot-demo --dry-run=client -o yaml | kubectl apply -f -

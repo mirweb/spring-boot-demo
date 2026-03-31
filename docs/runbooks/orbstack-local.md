@@ -65,6 +65,40 @@ test:
     - ./mvnw test
 ```
 
+## Wildcard TLS certificate for *.k8s.orb.local
+
+The Ingress in `deploy/spring-boot-demo.yaml` expects a TLS secret named
+`wildcard-k8s-orb-local-tls` in each app namespace. Create it once per namespace
+using a mkcert wildcard certificate.
+
+### One-time setup
+
+1. Generate the wildcard certificate (if not already done):
+
+   ```bash
+   mkcert "*.k8s.orb.local"
+   ```
+
+   This produces `_wildcard.k8s.orb.local.pem` and `_wildcard.k8s.orb.local-key.pem`
+   in the current directory. mkcert also installs its root CA so the cert is
+   trusted system-wide.
+
+2. Create the Kubernetes secret in the app namespace:
+
+   ```bash
+   kubectl create secret tls wildcard-k8s-orb-local-tls \
+     --cert=_wildcard.k8s.orb.local.pem \
+     --key=_wildcard.k8s.orb.local-key.pem \
+     --namespace spring-boot-demo
+   ```
+
+   Repeat for each namespace that needs TLS. The secret name
+   `wildcard-k8s-orb-local-tls` is referenced by all Ingress resources in this
+   project — only the namespace must match.
+
+After this, `https://spring-boot-demo.k8s.orb.local` is accessible with a
+trusted certificate.
+
 ## Using the agent for deployments
 
 The agent provides a kubeconfig context in CI jobs. Reference it with the project path and agent name:
