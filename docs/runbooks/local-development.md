@@ -58,30 +58,33 @@ docker run --rm -p 8080:8080 spring-boot-demo:local
 Um das Multi-Arch-Build (`linux/amd64` + `linux/arm64`) lokal zu testen, wird eine Registry benötigt.
 `jib:build` pushed das Manifest-Index-Image direkt dorthin.
 
+> **macOS-Hinweis:** Port 5000 ist auf macOS durch den AirPlay Receiver belegt. Die Registry deshalb auf Port **5050** betreiben — andernfalls timed Jib mit einem `Read timed out`-Fehler aus.
+> AirPlay Receiver lässt sich alternativ unter *Systemeinstellungen → Allgemein → AirDrop & Handoff* deaktivieren.
+
 1. Lokale Registry starten (einmalig):
 
    ```bash
-   docker run -d --name registry -p 5000:5000 registry:2
+   docker run -d --name registry -p 5050:5000 registry:2
    ```
 
 2. Multi-Arch-Image bauen und in die lokale Registry pushen:
 
    ```bash
    ./mvnw -DskipTests package jib:build \
-     -Djib.to.image=localhost:5000/spring-boot-demo:local \
+     -Djib.to.image=localhost:5050/spring-boot-demo:local \
      -Djib.allowInsecureRegistries=true
    ```
 
 3. Manifeste prüfen (beide Architekturen müssen erscheinen):
 
    ```bash
-   docker buildx imagetools inspect localhost:5000/spring-boot-demo:local
+   docker buildx imagetools inspect localhost:5050/spring-boot-demo:local
    ```
 
 4. Image für die Host-Architektur lokal ausführen:
 
    ```bash
-   docker run --rm -p 8080:8080 localhost:5000/spring-boot-demo:local
+   docker run --rm -p 8080:8080 localhost:5050/spring-boot-demo:local
    ```
 
 5. Registry aufräumen (optional):
