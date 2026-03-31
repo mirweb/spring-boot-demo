@@ -4,12 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.6.0] - 2026-03-31
 ### Added
 - Add `deploy/spring-boot-demo.yaml` Kubernetes manifest for deploying the application to the OrbStack local cluster via the GitLab Kubernetes Agent.
 - Add manual `deploy-orbstack` CI job (stage `deploy`) that applies the manifest via the `orbstack` agent after a tagged release image is published.
+- Add HTTPS Ingress for `https://spring-boot-demo.k8s.orb.local` via mkcert wildcard TLS (`*.k8s.orb.local`).
 
 ### Changed
 - Build multi-arch Docker images (`linux/amd64`, `linux/arm64`) via Jib `<platforms>` configuration.
+- Replace `RUNNER_TAG` CI variable with `spec:inputs` dropdown for selecting the runner tag in the GitLab UI.
+- Make Node.js download in CI arch-independent (`amd64` + `arm64`).
 
 ## [0.5.1] - 2026-03-29
 ### Added
