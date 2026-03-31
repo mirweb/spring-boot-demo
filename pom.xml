@@ -137,7 +137,9 @@
 						</platforms>
 					</from>
 					<container>
-						<format>OCI</format>
+						<!-- Docker manifest list format required for GitLab registry multi-arch support.
+						     OCI image index is not accepted by the GitLab registry content-type negotiation. -->
+						<format>Docker</format>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						<ports>
 							<port>8080</port>
