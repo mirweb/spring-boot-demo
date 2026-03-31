@@ -111,7 +111,7 @@ deploy-orbstack:
   stage: deploy
   tags:
     - $[[ inputs.runner_tag ]]
-  image: bitnami/kubectl:latest
+  image: alpine/k8s:1.32.3
   needs:
     - publish-release-image
   rules:
