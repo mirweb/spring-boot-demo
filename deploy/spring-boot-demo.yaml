@@ -5,18 +5,6 @@ metadata:
 
 ---
 
-apiVersion: v1
-kind: Secret
-metadata:
-  name: gitlab-registry
-  namespace: spring-boot-demo
-type: kubernetes.io/dockerconfigjson
-data:
-  # Populated by the CI deploy job via kubectl create secret --dry-run | kubectl apply
-  .dockerconfigjson: e30K
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
