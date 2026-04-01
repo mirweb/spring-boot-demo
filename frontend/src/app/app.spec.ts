@@ -7,9 +7,11 @@ import { APP_METADATA } from './app-version';
 
 describe('App', () => {
   beforeEach(async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({ message: 'Hello Angular!' })
+    vi.stubGlobal('fetch', vi.fn().mockImplementation((url: string) => {
+      if (url === '/api/info') {
+        return Promise.resolve({ ok: true, json: async () => ({ name: 'spring-boot-demo', version: '1.2.3' }) });
+      }
+      return Promise.resolve({ ok: true, json: async () => ({ message: 'Hello Angular!' }) });
     }));
 
     await TestBed.configureTestingModule({
@@ -34,6 +36,7 @@ describe('App', () => {
     await router.navigateByUrl('/');
     fixture.detectChanges();
     await fixture.whenStable();
+    await new Promise(resolve => setTimeout(resolve));
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
@@ -44,7 +47,7 @@ describe('App', () => {
     expect(compiled.querySelector('.app-nav')?.textContent).toContain('Feature page');
     expect(bodyText).toContain('Current application content stays on the default route.');
     expect(bodyText).toContain('API response');
-    expect(compiled.querySelector('.app-footer')?.textContent).toContain(APP_METADATA.name);
-    expect(compiled.querySelector('.app-footer')?.textContent).toContain(APP_METADATA.version);
+    expect(compiled.querySelector('.app-footer')?.textContent).toContain('spring-boot-demo');
+    expect(compiled.querySelector('.app-footer')?.textContent).toContain('1.2.3');
   });
 });

@@ -6,9 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
-- Enable Traefik dashboard (`api.dashboard=true`, `api.insecure=true`) in the OrbStack Helm release.
-- Add `IngressRoute` resource for the Traefik dashboard at `https://traefik.k8s.orb.local/dashboard/` via the `infra/orbstack-local` OpenTofu module.
-- Document Traefik dashboard access in `docs/runbooks/orbstack-local.md`, including one-time TLS secret setup and port-forward fallback.
+- Add `GET /api/info` endpoint that returns application name and version from Spring Boot `BuildProperties` ([#10](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/10)).
+- Enable `build-info` goal in `spring-boot-maven-plugin` to populate `BuildProperties` at build time ([#10](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/10)).
+- Frontend footer now fetches version info dynamically from `/api/info`; falls back to local `APP_METADATA` on error ([#10](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/10)).
 
 ## [0.6.3] - 2026-04-01
 

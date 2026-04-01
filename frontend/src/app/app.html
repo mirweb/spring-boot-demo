@@ -1,6 +1,6 @@
 <main class="app-shell">
   <header class="app-banner">
-    <h1>{{ appName }}</h1>
+    <h1>{{ appName() }}</h1>
   </header>
 
   <nav class="app-nav" aria-label="Primary navigation">
@@ -19,7 +19,7 @@
   </section>
 
   <footer class="app-footer" aria-label="Application metadata">
-    <span>{{ appName }}</span>
-    <span>v{{ appVersion }}</span>
+    <span>{{ appName() }}</span>
+    <span>v{{ appVersion() }}</span>
   </footer>
 </main>
