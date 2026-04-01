@@ -91,6 +91,39 @@ resource "helm_release" "gitlab_runner" {
   ]
 }
 
+resource "helm_release" "traefik" {
+  name             = "traefik"
+  repository       = "https://traefik.github.io/charts"
+  chart            = "traefik"
+  namespace        = "traefik"
+  create_namespace = true
+
+  set {
+    name  = "service.type"
+    value = "LoadBalancer"
+  }
+
+  set {
+    name  = "ingressClass.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "ingressClass.isDefaultClass"
+    value = "true"
+  }
+
+  set {
+    name  = "ports.web.http.redirections.entryPoint.to"
+    value = "websecure"
+  }
+
+  set {
+    name  = "ports.web.http.redirections.entryPoint.scheme"
+    value = "https"
+  }
+}
+
 resource "helm_release" "gitlab_agent" {
   name             = "gitlab-agent"
   repository       = "https://charts.gitlab.io"

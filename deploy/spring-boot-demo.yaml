@@ -61,10 +61,8 @@ kind: Ingress
 metadata:
   name: spring-boot-demo
   namespace: spring-boot-demo
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
     - hosts:
         - spring-boot-demo.k8s.orb.local
