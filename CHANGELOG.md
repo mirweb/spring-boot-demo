@@ -5,11 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-04-01
+
 ### Added
 - Install Traefik as the default ingress controller on the OrbStack local cluster via the `infra/orbstack-local` OpenTofu module (Helm, `LoadBalancer`, HTTP→HTTPS redirect).
 
 ### Changed
 - Switch `deploy/spring-boot-demo.yaml` ingress from `nginx` to `traefik` IngressClass; remove `nginx.ingress.kubernetes.io/ssl-redirect` annotation (redirect handled by Traefik entry point).
+- Validate CI jobs are now manual on normal commits and run automatically on tag push only.
 
 ## [0.6.2] - 2026-04-01
 
