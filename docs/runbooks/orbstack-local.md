@@ -162,6 +162,40 @@ kubectl delete namespace spring-boot-demo
 
 > **Hinweis:** Damit wird auch das TLS-Secret gelöscht und muss beim nächsten Deployment neu angelegt werden.
 
+## Traefik Dashboard
+
+The Traefik dashboard is exposed via an `IngressRoute` at `https://traefik.k8s.orb.local/dashboard/`.
+
+### One-time setup
+
+Create the wildcard TLS secret in the `traefik` namespace (same certificate as for app namespaces):
+
+```bash
+kubectl create secret tls wildcard-k8s-orb-local-tls \
+  --cert=_wildcard.k8s.orb.local.pem \
+  --key=_wildcard.k8s.orb.local-key.pem \
+  --namespace traefik
+```
+
+After `tofu apply`, the dashboard is available at:
+
+```
+https://traefik.k8s.orb.local/dashboard/
+```
+
+> **Note:** The trailing slash in `/dashboard/` is required — without it Traefik returns 404.
+
+### Fallback: port-forward
+
+If the TLS secret is not set up, the dashboard is also accessible via port-forward on the internal entrypoint:
+
+```bash
+kubectl -n traefik port-forward \
+  $(kubectl -n traefik get pods -o name | head -1) \
+  9000:8080
+# http://localhost:9000/dashboard/
+```
+
 ## Tear down
 
 ```bash

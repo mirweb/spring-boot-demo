@@ -122,6 +122,47 @@ resource "helm_release" "traefik" {
     name  = "ports.web.http.redirections.entryPoint.scheme"
     value = "https"
   }
+
+  set {
+    name  = "api.dashboard"
+    value = "true"
+  }
+
+  set {
+    name  = "api.insecure"
+    value = "true"
+  }
+}
+
+resource "kubernetes_manifest" "traefik_dashboard_ingressroute" {
+  manifest = {
+    apiVersion = "traefik.io/v1alpha1"
+    kind       = "IngressRoute"
+    metadata = {
+      name      = "traefik-dashboard"
+      namespace = "traefik"
+    }
+    spec = {
+      entryPoints = ["websecure"]
+      routes = [
+        {
+          match = "Host(`traefik.k8s.orb.local`)"
+          kind  = "Rule"
+          services = [
+            {
+              name = "api@internal"
+              kind = "TraefikService"
+            }
+          ]
+        }
+      ]
+      tls = {
+        secretName = "wildcard-k8s-orb-local-tls"
+      }
+    }
+  }
+
+  depends_on = [helm_release.traefik]
 }
 
 resource "helm_release" "gitlab_agent" {

@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Enable Traefik dashboard (`api.dashboard=true`, `api.insecure=true`) in the OrbStack Helm release.
+- Add `IngressRoute` resource for the Traefik dashboard at `https://traefik.k8s.orb.local/dashboard/` via the `infra/orbstack-local` OpenTofu module.
+- Document Traefik dashboard access in `docs/runbooks/orbstack-local.md`, including one-time TLS secret setup and port-forward fallback.
+
 ## [0.6.3] - 2026-04-01
 
 ### Added
