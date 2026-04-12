@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+- Remove unused `import io.swagger.v3.oas.annotations.Parameter` from `SpringBootDemoApplication.java`.
+- Suppress m2e "not covered by lifecycle" warning for `exec-maven-plugin` executions by adding an `org.eclipse.m2e:lifecycle-mapping` entry in `pluginManagement`.
+
 ### Changed
 - Migrate Maven versioning to CI-friendly `${revision}` property; `pom.xml` version is now set via `-Drevision=<tag>` on tag pipelines and defaults to `0.0.1-SNAPSHOT` locally ([#11](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/11)).
 - Add `flatten-maven-plugin` to resolve `${revision}` in the installed/deployed POM ([#11](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/11)).
