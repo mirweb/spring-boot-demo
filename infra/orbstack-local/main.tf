@@ -208,9 +208,16 @@ resource "helm_release" "loki" {
       replicas: 0
     write:
       replicas: 0
+    # Disable Memcached caches — not needed for local dev and require
+    # memory resources the single-node OrbStack cluster cannot provide.
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
   EOT
   ]
 
+  timeout    = 600
   depends_on = [kubernetes_namespace.monitoring]
 }
 
