@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+- Migrate Maven versioning to CI-friendly `${revision}` property; `pom.xml` version is now set via `-Drevision=<tag>` on tag pipelines and defaults to `0.0.1-SNAPSHOT` locally ([#11](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/11)).
+- Add `flatten-maven-plugin` to resolve `${revision}` in the installed/deployed POM ([#11](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/11)).
+- CI `publish-release-image` and `backend-validate` jobs now pass `-Drevision=$CI_COMMIT_TAG` on tag pipelines ([#11](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/11)).
+
 ## [0.6.4] - 2026-04-01
 
 ### Added

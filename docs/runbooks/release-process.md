@@ -3,7 +3,6 @@
 ## Before release
 
 - Ensure `CHANGELOG.md` reflects the pending changes.
-- Update project version metadata as needed.
 - Verify documentation under `docs/` still matches the implemented architecture and workflows.
 - Ensure the GitLab CI pipeline is green for the relevant branch or merge request.
 - Check GitLab test reports when a CI validation job fails instead of relying on raw logs alone.
@@ -15,7 +14,7 @@
 2. Create the release commit and Git tag.
 3. Merge the release branch back to `main` if the release was prepared on a feature branch.
 4. Push commits and tags to the primary remote.
-5. Verify the tag pipeline publishes an image to the GitLab Container Registry as `$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG`.
+5. Verify the tag pipeline publishes an image to the GitLab Container Registry as `$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG`. The Maven build automatically receives `-Drevision=$CI_COMMIT_TAG`, so the embedded version matches the tag.
 
 ## After release
 

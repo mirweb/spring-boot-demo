@@ -71,7 +71,7 @@ cache:
 backend-validate:
   extends: .base_validate
   script:
-    - ./mvnw --batch-mode test
+    - ./mvnw --batch-mode ${CI_COMMIT_TAG:+-Drevision=$CI_COMMIT_TAG} test
   artifacts:
     when: always
     reports:
@@ -106,6 +106,7 @@ publish-release-image:
     - >
       ./mvnw --batch-mode
       -DskipTests
+      -Drevision=$CI_COMMIT_TAG
       -Djib.to.image=$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
       -Djib.to.auth.username=gitlab-ci-token
       -Djib.to.auth.password=$CI_JOB_TOKEN
