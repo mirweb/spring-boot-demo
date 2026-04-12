@@ -14,6 +14,12 @@
 ./mvnw spring-boot:run
 ```
 
+Omitting `-Drevision` defaults to `0.0.1-SNAPSHOT`. To start the app with a specific version:
+
+```bash
+./mvnw spring-boot:run -Drevision=1.2.3
+```
+
 ### Backend with production profile
 
 ```bash
