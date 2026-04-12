@@ -253,11 +253,15 @@ Prometheus is exposed at:
 https://prometheus.k8s.orb.local
 ```
 
-It scrapes metrics from the Spring Boot application every 15 seconds via the `/actuator/prometheus` endpoint. The scrape target is configured statically in `infra/orbstack-local/main.tf`:
+It scrapes metrics every 15 seconds from any Kubernetes Service that carries these annotations:
 
+```yaml
+prometheus.io/scrape: "true"
+prometheus.io/path: /actuator/prometheus   # defaults to /metrics if omitted
+prometheus.io/port: "8080"
 ```
-spring-boot-demo.spring-boot-demo.svc.cluster.local:8080
-```
+
+The Spring Boot Service in `deploy/spring-boot-demo.yaml` already has these annotations. Any additional service can be monitored by adding the same annotations — no infrastructure changes required.
 
 To explore metrics in Grafana:
 

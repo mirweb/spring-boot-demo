@@ -311,11 +311,26 @@ resource "helm_release" "prometheus" {
       global:
         scrape_interval: 15s
     extraScrapeConfigs: |
-      - job_name: spring-boot-demo
-        metrics_path: /actuator/prometheus
-        static_configs:
-          - targets:
-              - spring-boot-demo.spring-boot-demo.svc.cluster.local:8080
+      - job_name: kubernetes-services
+        kubernetes_sd_configs:
+          - role: service
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+            action: keep
+            regex: "true"
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            target_label: __address__
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            target_label: service
     alertmanager:
       enabled: false
     prometheus-pushgateway:

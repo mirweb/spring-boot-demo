@@ -7,7 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - Expose `/actuator/prometheus` metrics endpoint in the Spring Boot application via `spring-boot-starter-actuator` and `micrometer-registry-prometheus` ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
-- Deploy Prometheus to the OrbStack local cluster (`infra/orbstack-local`); scrapes Spring Boot metrics every 15 s from `spring-boot-demo.spring-boot-demo.svc.cluster.local:8080/actuator/prometheus` ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
+- Deploy Prometheus to the OrbStack local cluster (`infra/orbstack-local`) with annotation-based autodiscovery; any Kubernetes Service annotated with `prometheus.io/scrape: "true"` is scraped automatically — no infrastructure changes required ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
+- Add `prometheus.io/scrape`, `prometheus.io/path`, and `prometheus.io/port` annotations to the Spring Boot Service in `deploy/spring-boot-demo.yaml` ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
 - Expose Prometheus via Traefik IngressRoute at `https://prometheus.k8s.orb.local` ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
 - Add Prometheus as a second Grafana data source alongside Loki ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
 - Document Prometheus access and metric exploration in `docs/runbooks/orbstack-local.md` ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
