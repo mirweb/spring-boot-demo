@@ -311,7 +311,7 @@ resource "helm_release" "prometheus" {
       global:
         scrape_interval: 15s
     extraScrapeConfigs: |
-      - job_name: kubernetes-services
+      - job_name: annotated-services
         kubernetes_sd_configs:
           - role: service
         relabel_configs:
