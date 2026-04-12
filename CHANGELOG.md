@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Deploy Loki (single-binary, filesystem, 90-day retention), Promtail, and Grafana to the OrbStack local cluster via the `infra/orbstack-local` OpenTofu module ([#13](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/13)).
+- Pre-configure Loki as the default Grafana data source; expose Grafana via Traefik IngressRoute at `https://grafana.k8s.orb.local` ([#13](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/13)).
+- Document Grafana + Loki setup (access, TLS secret, log exploration, retention) in `docs/runbooks/orbstack-local.md` ([#13](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/13)).
+
 ## [0.6.5] - 2026-04-12
 
 ### Added
