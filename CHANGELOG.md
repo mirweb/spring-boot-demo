@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Add `scripts/extract-changelog.sh` to extract the changelog section for a given version tag ([#12](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/12)).
+- Add `create-gitlab-release` CI job (stage `release`) that creates a GitLab Release with the corresponding `CHANGELOG.md` section when a tag is pushed ([#12](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/12)).
+
 ### Fixed
 - Remove unused `import io.swagger.v3.oas.annotations.Parameter` from `SpringBootDemoApplication.java`.
 - Suppress m2e "not covered by lifecycle" warning for `exec-maven-plugin` executions by adding an `org.eclipse.m2e:lifecycle-mapping` entry in `pluginManagement`.
