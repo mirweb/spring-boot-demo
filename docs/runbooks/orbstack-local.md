@@ -196,15 +196,16 @@ kubectl -n traefik port-forward \
 # http://localhost:9000/dashboard/
 ```
 
-## Grafana + Loki (log aggregation)
+## Grafana + Loki + Prometheus (observability)
 
-The `infra/orbstack-local` module deploys a Grafana + Loki stack in the `monitoring` namespace for centralized log aggregation.
+The `infra/orbstack-local` module deploys a full observability stack in the `monitoring` namespace for centralized log aggregation and metrics.
 
 | Component | Role |
 |-----------|------|
 | **Loki** | Log aggregation backend (single-binary, filesystem storage) |
 | **Promtail** | DaemonSet that ships logs from all pods to Loki |
-| **Grafana** | Visualization UI, pre-configured with the Loki data source |
+| **Prometheus** | Metrics scraping and storage |
+| **Grafana** | Visualization UI, pre-configured with Loki and Prometheus data sources |
 
 ### Access
 
@@ -244,14 +245,38 @@ kubectl create secret tls wildcard-k8s-orb-local-tls \
 
 Loki is configured with a **90-day (2160 h)** retention period. The compactor runs automatically to enforce this limit.
 
+### Prometheus
+
+Prometheus is exposed at:
+
+```
+https://prometheus.k8s.orb.local
+```
+
+It scrapes metrics from the Spring Boot application every 15 seconds via the `/actuator/prometheus` endpoint. The scrape target is configured statically in `infra/orbstack-local/main.tf`:
+
+```
+spring-boot-demo.spring-boot-demo.svc.cluster.local:8080
+```
+
+To explore metrics in Grafana:
+
+1. Open `https://grafana.k8s.orb.local`
+2. Go to **Explore** → select the **Prometheus** data source
+3. Use PromQL to query metrics, e.g. `http_server_requests_seconds_count`
+
 ### Verify
 
 ```bash
 kubectl -n monitoring get pods
-# Expected: loki-0, promtail-*, grafana-*
+# Expected: loki-0, promtail-*, grafana-*, prometheus-server-*
 
 kubectl -n monitoring logs -l app.kubernetes.io/name=promtail --tail=20
 # Should show log scrape activity
+
+# Check Prometheus scrape targets
+kubectl -n monitoring port-forward svc/prometheus-server 9090:80
+# Open http://localhost:9090/targets — spring-boot-demo should be UP
 ```
 
 ## Tear down
