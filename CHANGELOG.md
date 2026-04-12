@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-04-12
+
 ### Added
 - Expose `/actuator/prometheus` metrics endpoint in the Spring Boot application via `spring-boot-starter-actuator` and `micrometer-registry-prometheus` ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
 - Deploy Prometheus to the OrbStack local cluster (`infra/orbstack-local`) with annotation-based autodiscovery; any Kubernetes Service annotated with `prometheus.io/scrape: "true"` is scraped automatically — no infrastructure changes required ([#14](https://gitlab.com/mirko111/spring-boot-demo/-/work_items/14)).
