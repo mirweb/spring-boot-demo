@@ -253,6 +253,10 @@ resource "helm_release" "grafana" {
             url: http://loki.${kubernetes_namespace.monitoring.metadata[0].name}.svc.cluster.local:3100
             access: proxy
             isDefault: true
+          - name: Prometheus
+            type: prometheus
+            url: http://prometheus-server.${kubernetes_namespace.monitoring.metadata[0].name}.svc.cluster.local
+            access: proxy
     grafana.ini:
       server:
         root_url: https://grafana.k8s.orb.local
@@ -293,6 +297,83 @@ resource "kubernetes_manifest" "grafana_ingressroute" {
   }
 
   depends_on = [helm_release.grafana]
+}
+
+resource "helm_release" "prometheus" {
+  name             = "prometheus"
+  repository       = "https://prometheus-community.github.io/helm-charts"
+  chart            = "prometheus"
+  namespace        = kubernetes_namespace.monitoring.metadata[0].name
+  create_namespace = false
+
+  values = [<<-EOT
+    server:
+      global:
+        scrape_interval: 15s
+    extraScrapeConfigs: |
+      - job_name: kubernetes-services
+        kubernetes_sd_configs:
+          - role: service
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+            action: keep
+            regex: "true"
+          - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+            action: replace
+            target_label: __address__
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          - source_labels: [__meta_kubernetes_service_name]
+            target_label: service
+    alertmanager:
+      enabled: false
+    prometheus-pushgateway:
+      enabled: false
+    kube-state-metrics:
+      enabled: false
+    prometheus-node-exporter:
+      enabled: false
+  EOT
+  ]
+
+  depends_on = [kubernetes_namespace.monitoring]
+}
+
+resource "kubernetes_manifest" "prometheus_ingressroute" {
+  manifest = {
+    apiVersion = "traefik.io/v1alpha1"
+    kind       = "IngressRoute"
+    metadata = {
+      name      = "prometheus"
+      namespace = kubernetes_namespace.monitoring.metadata[0].name
+    }
+    spec = {
+      entryPoints = ["websecure"]
+      routes = [
+        {
+          match = "Host(`prometheus.k8s.orb.local`)"
+          kind  = "Rule"
+          services = [
+            {
+              name = "prometheus-server"
+              port = 80
+            }
+          ]
+        }
+      ]
+      tls = {
+        secretName = "wildcard-k8s-orb-local-tls"
+      }
+    }
+  }
+
+  depends_on = [helm_release.prometheus]
 }
 
 resource "helm_release" "gitlab_agent" {

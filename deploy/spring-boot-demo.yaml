@@ -46,6 +46,10 @@ kind: Service
 metadata:
   name: spring-boot-demo
   namespace: spring-boot-demo
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /actuator/prometheus
+    prometheus.io/port: "8080"
 spec:
   selector:
     app: spring-boot-demo
