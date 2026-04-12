@@ -165,6 +165,136 @@ resource "kubernetes_manifest" "traefik_dashboard_ingressroute" {
   depends_on = [helm_release.traefik]
 }
 
+resource "kubernetes_namespace" "monitoring" {
+  metadata {
+    name = "monitoring"
+  }
+}
+
+resource "helm_release" "loki" {
+  name             = "loki"
+  repository       = "https://grafana.github.io/helm-charts"
+  chart            = "loki"
+  namespace        = kubernetes_namespace.monitoring.metadata[0].name
+  create_namespace = false
+
+  values = [<<-EOT
+    deploymentMode: SingleBinary
+    loki:
+      auth_enabled: false
+      commonConfig:
+        replication_factor: 1
+      storage:
+        type: filesystem
+      limits_config:
+        retention_period: 2160h
+      compactor:
+        retention_enabled: true
+        delete_request_store: filesystem
+      schemaConfig:
+        configs:
+          - from: "2024-01-01"
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+    singleBinary:
+      replicas: 1
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    # Disable Memcached caches — not needed for local dev and require
+    # memory resources the single-node OrbStack cluster cannot provide.
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
+  EOT
+  ]
+
+  timeout    = 600
+  depends_on = [kubernetes_namespace.monitoring]
+}
+
+resource "helm_release" "promtail" {
+  name             = "promtail"
+  repository       = "https://grafana.github.io/helm-charts"
+  chart            = "promtail"
+  namespace        = kubernetes_namespace.monitoring.metadata[0].name
+  create_namespace = false
+
+  set {
+    name  = "config.clients[0].url"
+    value = "http://loki.${kubernetes_namespace.monitoring.metadata[0].name}.svc.cluster.local:3100/loki/api/v1/push"
+  }
+
+  depends_on = [helm_release.loki]
+}
+
+resource "helm_release" "grafana" {
+  name             = "grafana"
+  repository       = "https://grafana.github.io/helm-charts"
+  chart            = "grafana"
+  namespace        = kubernetes_namespace.monitoring.metadata[0].name
+  create_namespace = false
+
+  values = [<<-EOT
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Loki
+            type: loki
+            url: http://loki.${kubernetes_namespace.monitoring.metadata[0].name}.svc.cluster.local:3100
+            access: proxy
+            isDefault: true
+    grafana.ini:
+      server:
+        root_url: https://grafana.k8s.orb.local
+    ingress:
+      enabled: false
+  EOT
+  ]
+
+  depends_on = [helm_release.loki]
+}
+
+resource "kubernetes_manifest" "grafana_ingressroute" {
+  manifest = {
+    apiVersion = "traefik.io/v1alpha1"
+    kind       = "IngressRoute"
+    metadata = {
+      name      = "grafana"
+      namespace = kubernetes_namespace.monitoring.metadata[0].name
+    }
+    spec = {
+      entryPoints = ["websecure"]
+      routes = [
+        {
+          match = "Host(`grafana.k8s.orb.local`)"
+          kind  = "Rule"
+          services = [
+            {
+              name = "grafana"
+              port = 80
+            }
+          ]
+        }
+      ]
+      tls = {
+        secretName = "wildcard-k8s-orb-local-tls"
+      }
+    }
+  }
+
+  depends_on = [helm_release.grafana]
+}
+
 resource "helm_release" "gitlab_agent" {
   name             = "gitlab-agent"
   repository       = "https://charts.gitlab.io"

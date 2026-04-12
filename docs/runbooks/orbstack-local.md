@@ -196,6 +196,64 @@ kubectl -n traefik port-forward \
 # http://localhost:9000/dashboard/
 ```
 
+## Grafana + Loki (log aggregation)
+
+The `infra/orbstack-local` module deploys a Grafana + Loki stack in the `monitoring` namespace for centralized log aggregation.
+
+| Component | Role |
+|-----------|------|
+| **Loki** | Log aggregation backend (single-binary, filesystem storage) |
+| **Promtail** | DaemonSet that ships logs from all pods to Loki |
+| **Grafana** | Visualization UI, pre-configured with the Loki data source |
+
+### Access
+
+After `tofu apply`, Grafana is available at:
+
+```
+https://grafana.k8s.orb.local
+```
+
+Default credentials: `admin` / `prom-operator` (see the `grafana` secret in the `monitoring` namespace for the generated password).
+
+Retrieve the admin password:
+
+```bash
+kubectl -n monitoring get secret grafana \
+  -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
+
+### One-time TLS secret setup
+
+Create the wildcard TLS secret in the `monitoring` namespace (same certificate as for other namespaces):
+
+```bash
+kubectl create secret tls wildcard-k8s-orb-local-tls \
+  --cert=_wildcard.k8s.orb.local.pem \
+  --key=_wildcard.k8s.orb.local-key.pem \
+  --namespace monitoring
+```
+
+### Exploring logs
+
+1. Open `https://grafana.k8s.orb.local`
+2. Go to **Explore** → select the **Loki** data source
+3. Use LogQL to filter logs, e.g. `{namespace="spring-boot-demo"}`
+
+### Log retention
+
+Loki is configured with a **90-day (2160 h)** retention period. The compactor runs automatically to enforce this limit.
+
+### Verify
+
+```bash
+kubectl -n monitoring get pods
+# Expected: loki-0, promtail-*, grafana-*
+
+kubectl -n monitoring logs -l app.kubernetes.io/name=promtail --tail=20
+# Should show log scrape activity
+```
+
 ## Tear down
 
 ```bash
