@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Configure GitLab Terraform HTTP backend for `infra/orbstack-local` — state is now stored in GitLab under project ID 80076845 with state name `orbstack-local`.
+- Document required environment variables (`GITLAB_HTTP_USERNAME`, `GITLAB_HTTP_TOKEN`, `TF_HTTP_USERNAME`, `TF_HTTP_PASSWORD`) in `docs/runbooks/orbstack-local.md`.
+
 ## [0.7.0] - 2026-04-12
 
 ### Added

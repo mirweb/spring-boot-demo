@@ -30,6 +30,25 @@ This runbook describes how to install a GitLab Runner and the GitLab Kubernetes 
 3. Name: `orbstack`
 4. Copy the token (`glagent-...`)
 
+## Environment variables
+
+The OpenTofu HTTP backend authenticates against the GitLab Terraform state API.
+Set these variables before running any `tofu` command:
+
+```bash
+set -gx GITLAB_HTTP_USERNAME <your-gitlab-username>
+set -gx GITLAB_HTTP_TOKEN <glpat-...>   # Personal Access Token with api scope
+```
+
+Map them to the names OpenTofu expects:
+
+```bash
+set -gx TF_HTTP_USERNAME $GITLAB_HTTP_USERNAME
+set -gx TF_HTTP_PASSWORD $GITLAB_HTTP_TOKEN
+```
+
+To persist across sessions, add both blocks to `~/.config/fish/conf.d/secrets.fish`.
+
 ## Local setup
 
 ```bash
